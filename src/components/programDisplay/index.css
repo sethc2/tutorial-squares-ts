@@ -1,0 +1,58 @@
+.mainContainer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.statusBar {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+}
+
+.gridAndArrowContainer {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+
+.gridAndArrowHelper {
+  flex: 1;
+}
+
+.gridAndArrowInnerContainer {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 10;
+}
+
+.square {
+  position: absolute;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+.controlsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.startReset {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.startProgram {
+  padding: 10px;
+  margin: 10px;
+}
+
+.resetProgram {
+  padding: 10px;
+  margin: 10px;
+}
