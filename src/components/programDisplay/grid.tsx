@@ -1,25 +1,23 @@
 import React from "react";
 
-const Grid = ({ squares, cellSize }) => {
+const Grid = ({ squares, cellSize }: any) => {
   return (
     <React.Fragment>
-      {squares.map(({ x, y, isLit, isLightable }, index) => {
+      {squares.map(({ x, y, color, value }: any, index: number) => {
         return (
           <div
-            className='square'
+            className="square"
             key={index}
             style={{
               top: y * cellSize,
               left: x * cellSize,
               width: cellSize,
               height: cellSize,
-              background: !isLightable
-                ? "lightgrey"
-                : isLit
-                ? "yellow"
-                : "lightblue"
+              background: color
             }}
-          />
+          >
+            {value ? value : null}
+          </div>
         );
       })}
     </React.Fragment>

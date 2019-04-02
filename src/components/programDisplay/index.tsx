@@ -4,72 +4,84 @@ import Arrow from "./arrow";
 import StatusBar from "./statusBar";
 import Controls from "./controls";
 import "./index.css";
+import { IArrowState, IGridState } from "../types";
+import lessons from "../../lessons";
+
+export interface IProgramDisplayProps {
+  arrowState: IArrowState;
+  gridState: IGridState;
+  directive: React.ReactNode;
+  cellSize: number;
+  start: (() => void) | null;
+  reset: (() => void) | null;
+  lessonNumber: keyof typeof lessons;
+  setLessonNumber: (value: keyof typeof lessons) => void;
+  success: boolean | null;
+  failure: boolean;
+  commands: string[];
+  commandIndex: number;
+  time: number;
+  setTime: (time: number) => void;
+}
 
 const ProgramDisplay = ({
+  arrowState,
+  gridState,
+  directive,
   cellSize,
-  gridHeight,
-  gridWidth,
-  squares,
-  time,
-  setTime,
-  arrowDirection,
-  arrowX,
-  arrowY,
   start,
   reset,
   lessonNumber,
   setLessonNumber,
   success,
   failure,
-  lessons,
   commands,
-  commandIndex
-}) => {
+  commandIndex,
+  time,
+  setTime
+}: IProgramDisplayProps) => {
   return (
     <div className="mainContainer">
       <div>
         <StatusBar
-          success={success}
+          success={success || false}
           failure={failure}
           running={!start && !success && !failure}
           directive={directive}
         />
         <Controls
+          cellSize={cellSize}
           start={start}
           reset={reset}
           lessonNumber={lessonNumber}
           setLessonNumber={setLessonNumber}
           setTime={setTime}
           time={time}
-          lessons={lessons}
         />
       </div>
       <div>
-        <ul>
-          {commands.map((x, index) => (
+        <ol>
+          {commands.map((x: string, index: number) => (
             <li
               key={index}
               style={{ color: index === commandIndex ? "blue" : "black" }}
             >
-              {x}
+              {x || "INITIAL"}
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
       <div className="gridAndArrowContainer">
         <div className="gridAndArrowHelper" />
         <div
           className="gridAndArrowInnerContainer"
-          style={{ height: gridHeight * cellSize, width: gridWidth * cellSize }}
+          style={{
+            height: gridState.height * cellSize,
+            width: gridState.width * cellSize
+          }}
         >
-          <Grid squares={squares} cellSize={cellSize} />
-          <Arrow
-            arrowX={arrowX}
-            arrowY={arrowY}
-            cellSize={cellSize}
-            time={time}
-            arrowDirection={arrowDirection}
-          />
+          <Grid squares={gridState.squares} cellSize={cellSize} />
+          <Arrow arrowState={arrowState} cellSize={cellSize} time={time} />
         </div>
         <div className="gridAndArrowHelper" />
       </div>

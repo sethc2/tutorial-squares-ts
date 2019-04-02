@@ -6,8 +6,27 @@
 
 .statusBar {
   display: flex;
-  justify-content: center;
-  height: 40px;
+  flex-direction: column;
+  height: 100px;
+}
+
+.statusState.running {
+  background: yellow;
+}
+
+.statusState.failure {
+  background: red;
+}
+
+.statusState.success {
+  background: green;
+}
+
+.statusState.stopped {
+  background: gray;
+}
+
+.directive {
 }
 
 .gridAndArrowContainer {
@@ -27,6 +46,11 @@
 .arrow {
   position: absolute;
   z-index: 10;
+  opacity: 0.7;
+}
+
+.arrow svg polygon {
+  fill: magenta;
 }
 
 .square {

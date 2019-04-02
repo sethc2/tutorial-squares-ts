@@ -16,6 +16,12 @@ export interface ISquare {
   value?: number;
 }
 
+export interface IProgramState {
+  gridState: IGridState;
+  arrowState: IArrowState;
+  fromCommand?: string;
+}
+
 export interface IArrowState {
   x: number;
   y: number;
@@ -30,9 +36,9 @@ export interface IGridState {
 
 export interface ILessonSetup {
   gridState: IGridState;
-  directive: string;
+  directive: React.ReactNode;
   isSuccess: (gridState: IGridState) => boolean;
-  colorToSet?: SquareColor;
+  colorToSet?: ColoredSquare;
   numberOfSquaresToColor?: number;
 }
 
@@ -60,11 +66,11 @@ export interface ILessonCommands {
   /**
    * Gets the color to set colorable (white) squares
    */
-  getColorToSet: () => "red" | "green" | "purple";
+  getColorToSet: () => ColoredSquare;
   /**
    * Sets a colorable square to a specific color. (once set cannot be changed)
    */
-  setColor: (color: "red" | "green" | "purple") => void;
+  setColor: (color: ColoredSquare) => void;
   /**
    * Gets a value of a colorable square
    */
@@ -73,6 +79,14 @@ export interface ILessonCommands {
    * Gets number of squares to set to a certain color.
    */
   getNumberofSquaresToColor: () => number;
+  /**
+   * Gets height of grid
+   */
+  getGridHeight: () => number;
+  /**
+   * Gets width of grid
+   */
+  getGridWidth: () => number;
 }
 
 // static grid and squares simple commands, move forward and so on
@@ -90,20 +104,20 @@ export type Lesson2Commands = Pick<
 // function commands - static grid and squares, but make large enough that it would be tedious to write everything
 export type Lesson3Commands = Lesson2Commands;
 
-// static grid, random squares . conditional isOn must be used. Teaches "if statement"
-export type Lesson4Commands = Pick<
-  ILessonCommands,
-  "moveForward" | "turnRight" | "turnLeft" | "toggleOnOff" | "isOn"
->;
-
 // static grid - static squares - with white squares in spots, change squares to purple. teaches that parameters can be passed to functions
 export type Lesson4Point5Commands = Pick<
   ILessonCommands,
   "moveForward" | "turnRight" | "turnLeft" | "setColor"
 >;
 
+// static grid, random squares . conditional isOn must be used. Teaches "if statement"
+export type Lesson4Commands = Pick<
+  ILessonCommands,
+  "moveForward" | "turnRight" | "turnLeft" | "toggleOnOff" | "isOn"
+>;
+
 // static grid - static squares - with white squares in spots, change to color specified at random
-// teaches "if else" statement.
+// teaches "if else" statement and introduces storing a variable.
 export type Lesson5Commands = Pick<
   ILessonCommands,
   "moveForward" | "turnRight" | "turnLeft" | "getColorToSet" | "setColor"
@@ -155,7 +169,7 @@ export type Lesson10Commands = Pick<
 >;
 
 // static grid - all white squares, paint X number of squares red teach concept of while loop while adding up a value to compare.
-export type Lesson13Commands = Pick<
+export type Lesson11Commands = Pick<
   ILessonCommands,
   | "moveForward"
   | "turnRight"
@@ -166,7 +180,7 @@ export type Lesson13Commands = Pick<
 >;
 
 // static grid - all white squares, pass in an object teach '.' operator.
-export type Lesson14Commands = Pick<
+export type Lesson12Commands = Pick<
   ILessonCommands,
   | "moveForward"
   | "turnRight"
@@ -177,12 +191,12 @@ export type Lesson14Commands = Pick<
 >;
 
 // Big grid 20x20 all white squares paint pyramid x number of rows tall
-export type Lesson11Commands = Pick<
+export type Lesson13Commands = Pick<
   ILessonCommands,
   | "moveForward"
   | "turnRight"
   | "turnLeft"
-  | "toggleOnOff"
-  | "isOn"
-  | "toggleOnOff"
+  | "setColor"
+  | "getGridHeight"
+  | "getGridWidth"
 >;
